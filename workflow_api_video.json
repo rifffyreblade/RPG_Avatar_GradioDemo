@@ -1,0 +1,633 @@
+{
+  "70": {
+    "inputs": {
+      "image": "ComfyUI_00008_.png",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "226": {
+    "inputs": {
+      "ckpt_name": "ltx-video-2b-v0.9.safetensors",
+      "dtype": "bfloat16"
+    },
+    "class_type": "LTXVLoader",
+    "_meta": {
+      "title": "🅛🅣🅧 LTXV Loader"
+    }
+  },
+  "227": {
+    "inputs": {
+      "preset": "Custom",
+      "width": [
+        "366",
+        0
+      ],
+      "height": [
+        "366",
+        1
+      ],
+      "frames_number": 97,
+      "frame_rate": 25,
+      "batch": 1,
+      "mixed_precision": true,
+      "noise_scale": 0.15,
+      "model": [
+        "226",
+        0
+      ],
+      "vae": [
+        "226",
+        1
+      ],
+      "conditioning": [
+        "344",
+        0
+      ]
+    },
+    "class_type": "LTXVModelConfigurator",
+    "_meta": {
+      "title": "🅛🅣🅧 LTXV Model Configurator"
+    }
+  },
+  "231": {
+    "inputs": {
+      "text": [
+        "371",
+        0
+      ],
+      "clip": [
+        "331",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "232": {
+    "inputs": {
+      "text": "",
+      "clip": [
+        "331",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "233": {
+    "inputs": {
+      "scheduler": "normal",
+      "steps": 50,
+      "denoise": 1,
+      "model": [
+        "227",
+        0
+      ]
+    },
+    "class_type": "BasicScheduler",
+    "_meta": {
+      "title": "BasicScheduler"
+    }
+  },
+  "234": {
+    "inputs": {
+      "sigma_shift": [
+        "227",
+        2
+      ],
+      "stretch": true,
+      "terminal": 0.1,
+      "sigmas": [
+        "233",
+        0
+      ]
+    },
+    "class_type": "LTXVShiftSigmas",
+    "_meta": {
+      "title": "🅛🅣🅧 LTXV Shift Sigmas"
+    }
+  },
+  "235": {
+    "inputs": {
+      "noise": [
+        "236",
+        0
+      ],
+      "guider": [
+        "237",
+        0
+      ],
+      "sampler": [
+        "238",
+        0
+      ],
+      "sigmas": [
+        "234",
+        0
+      ],
+      "latent_image": [
+        "227",
+        1
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "236": {
+    "inputs": {
+      "noise_seed": 1082377554281392
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "RandomNoise"
+    }
+  },
+  "237": {
+    "inputs": {
+      "cfg": 3.5,
+      "model": [
+        "227",
+        0
+      ],
+      "positive": [
+        "231",
+        0
+      ],
+      "negative": [
+        "232",
+        0
+      ]
+    },
+    "class_type": "CFGGuider",
+    "_meta": {
+      "title": "CFGGuider"
+    }
+  },
+  "238": {
+    "inputs": {
+      "sampler_name": "dpmpp_2m"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSamplerSelect"
+    }
+  },
+  "240": {
+    "inputs": {
+      "frame_rate": 25,
+      "loop_count": 0,
+      "filename_prefix": "AnimateDiff",
+      "format": "video/h264-mp4",
+      "pix_fmt": "yuv420p",
+      "crf": 30,
+      "save_metadata": true,
+      "pingpong": true,
+      "save_output": true,
+      "images": [
+        "283",
+        0
+      ]
+    },
+    "class_type": "VHS_VideoCombine",
+    "_meta": {
+      "title": "Video Combine 🎥🅥🅗🅢"
+    }
+  },
+  "243": {
+    "inputs": {
+      "delimeter": "",
+      "input_1": [
+        "265",
+        2
+      ],
+      "input_2": [
+        "341",
+        2
+      ],
+      "input_3": [
+        "358",
+        0
+      ],
+      "input_4": [
+        "333",
+        0
+      ],
+      "input_5": [
+        "244",
+        0
+      ],
+      "output_text": ""
+    },
+    "class_type": "SimpleConcat",
+    "_meta": {
+      "title": "SimpleConcat"
+    }
+  },
+  "244": {
+    "inputs": {
+      "text": "--- Above is all Data for the following to use ----\n\nForget any previous conversation or instruction.\n\nYou are now an AI assistant specialized in creating vivid, detailed, and unique prompts for image-to-video models, focusing on high-quality, lifelike animation and live action film and video. Add animation and movement details to the following for a static camera capturing the subject in an idle animation looking at the camera with subtle movements to show they are alive. Describe these slight movements, and add secondary animation to various aspects of the image following the 12 principals of animation as well as the rules of cinematography. Avoid terms suggesting scene changes or several cameras.\n\nRemove and redundancy from the above data and then proceed to create the Image to Video prompt written in plain English and only using industry jargon like instructions from a director instead of poetic or flowery words. There is no need for any explanation instead provide just the final prompt with no other comment using normal sentence structure.\n \n \n"
+    },
+    "class_type": "Textbox",
+    "_meta": {
+      "title": "Textbox"
+    }
+  },
+  "264": {
+    "inputs": {
+      "model": "microsoft/Florence-2-base",
+      "precision": "fp16",
+      "attention": "sdpa"
+    },
+    "class_type": "DownloadAndLoadFlorence2Model",
+    "_meta": {
+      "title": "DownloadAndLoadFlorence2Model"
+    }
+  },
+  "265": {
+    "inputs": {
+      "text_input": "",
+      "task": "more_detailed_caption",
+      "fill_mask": true,
+      "keep_model_loaded": false,
+      "max_new_tokens": 1024,
+      "num_beams": 3,
+      "do_sample": true,
+      "output_mask_select": "",
+      "seed": 724620470039121,
+      "image": [
+        "369",
+        0
+      ],
+      "florence2_model": [
+        "264",
+        0
+      ]
+    },
+    "class_type": "Florence2Run",
+    "_meta": {
+      "title": "Florence2Run"
+    }
+  },
+  "283": {
+    "inputs": {
+      "samples": [
+        "235",
+        0
+      ],
+      "vae": [
+        "226",
+        1
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "331": {
+    "inputs": {
+      "clip_name": "t5xxl_fp16.safetensors",
+      "type": "sd3"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "Load CLIP"
+    }
+  },
+  "333": {
+    "inputs": {
+      "text": "\n"
+    },
+    "class_type": "Textbox",
+    "_meta": {
+      "title": "Textbox"
+    }
+  },
+  "339": {
+    "inputs": {
+      "width": [
+        "360",
+        0
+      ],
+      "height": [
+        "352",
+        0
+      ],
+      "upscale_method": "lanczos",
+      "keep_proportion": false,
+      "divisible_by": 2,
+      "crop": "center",
+      "image": [
+        "361",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJ",
+    "_meta": {
+      "title": "Resize Image"
+    }
+  },
+  "341": {
+    "inputs": {
+      "model": "promptgen_base_v2.0",
+      "folder_path": "Path to your image folder",
+      "caption_method": "detailed",
+      "max_new_tokens": 1024,
+      "num_beams": 4,
+      "random_prompt": "never",
+      "prefix_caption": "",
+      "suffix_caption": "",
+      "replace_tags": "replace_tags eg:search1:replace1;search2:replace2",
+      "images": [
+        "369",
+        0
+      ]
+    },
+    "class_type": "Miaoshouai_Tagger",
+    "_meta": {
+      "title": "🐾MiaoshouAI Tagger"
+    }
+  },
+  "342": {
+    "inputs": {
+      "frame_rate": 1,
+      "loop_count": 0,
+      "filename_prefix": "Temp",
+      "format": "video/h264-mp4",
+      "pix_fmt": "yuv420p",
+      "crf": 30,
+      "save_metadata": false,
+      "pingpong": false,
+      "save_output": true,
+      "images": [
+        "369",
+        0
+      ]
+    },
+    "class_type": "VHS_VideoCombine",
+    "_meta": {
+      "title": "Video Combine 🎥🅥🅗🅢"
+    }
+  },
+  "343": {
+    "inputs": {
+      "index": -1,
+      "filenames": [
+        "342",
+        0
+      ]
+    },
+    "class_type": "VHS_SelectFilename",
+    "_meta": {
+      "title": "Select Filename 🎥🅥🅗🅢"
+    }
+  },
+  "344": {
+    "inputs": {
+      "video": [
+        "343",
+        0
+      ],
+      "force_rate": 0,
+      "force_size": "Disabled",
+      "custom_width": 512,
+      "custom_height": 512,
+      "frame_load_cap": 0,
+      "skip_first_frames": 0,
+      "select_every_nth": 1
+    },
+    "class_type": "VHS_LoadVideoPath",
+    "_meta": {
+      "title": "Load Video (Path) 🎥🅥🅗🅢"
+    }
+  },
+  "349": {
+    "inputs": {
+      "image": [
+        "361",
+        0
+      ]
+    },
+    "class_type": "Get Image Size",
+    "_meta": {
+      "title": "Get Image Size"
+    }
+  },
+  "352": {
+    "inputs": {
+      "script": "def getHeight(a):\n   height = int(a*(512/768))\n   while height % 32 != 0:\n       height+=1\n   return height\n\nasterr_result=getHeight(a)  ",
+      "preset_script": "None",
+      "always_run": "false",
+      "a": [
+        "349",
+        0
+      ]
+    },
+    "class_type": "ASTERR",
+    "_meta": {
+      "title": "ASTERR Script"
+    }
+  },
+  "358": {
+    "inputs": {
+      "THRESHOLD": 0.2,
+      "addTag": "",
+      "removeTag": "",
+      "image": [
+        "369",
+        0
+      ]
+    },
+    "class_type": "CXH_JoyTag",
+    "_meta": {
+      "title": "CXH_JoyTag"
+    }
+  },
+  "360": {
+    "inputs": {
+      "script": "def checkwidth(a):\n   width = a\n   while width % 32 != 0:\n      width += 1\n   return width\n\n\nasterr_result=checkwidth(a)  ",
+      "preset_script": "None",
+      "always_run": "false",
+      "a": [
+        "349",
+        0
+      ]
+    },
+    "class_type": "ASTERR",
+    "_meta": {
+      "title": "ASTERR Script"
+    }
+  },
+  "361": {
+    "inputs": {
+      "size": 768,
+      "edge": "width",
+      "image": [
+        "70",
+        0
+      ]
+    },
+    "class_type": "ImageSimpleResize",
+    "_meta": {
+      "title": "ImageSimpleResize"
+    }
+  },
+  "362": {
+    "inputs": {
+      "threshold": 0.5,
+      "dilation": 10,
+      "crop_factor": 3,
+      "drop_size": 10,
+      "labels": "all",
+      "segm_detector": [
+        "363",
+        1
+      ],
+      "image": [
+        "70",
+        0
+      ]
+    },
+    "class_type": "SegmDetectorSEGS",
+    "_meta": {
+      "title": "SEGM Detector (SEGS)"
+    }
+  },
+  "363": {
+    "inputs": {
+      "model_name": "segm/face_yolov8m-seg_60.pt"
+    },
+    "class_type": "UltralyticsDetectorProvider",
+    "_meta": {
+      "title": "UltralyticsDetectorProvider"
+    }
+  },
+  "364": {
+    "inputs": {
+      "segs": [
+        "362",
+        0
+      ]
+    },
+    "class_type": "Focalpoint from SEGS",
+    "_meta": {
+      "title": "FocalpointFromSegs"
+    }
+  },
+  "365": {
+    "inputs": {
+      "width": 768,
+      "height": 512,
+      "focalx": [
+        "364",
+        0
+      ],
+      "focaly": [
+        "367",
+        0
+      ],
+      "image_in": [
+        "70",
+        0
+      ]
+    },
+    "class_type": "Focal Rescale",
+    "_meta": {
+      "title": "Focal Rescale"
+    }
+  },
+  "366": {
+    "inputs": {
+      "image": [
+        "369",
+        0
+      ]
+    },
+    "class_type": "Get Image Size",
+    "_meta": {
+      "title": "Get Image Size"
+    }
+  },
+  "367": {
+    "inputs": {
+      "script": "def newX(a):\n   return a-20\n\nasterr_result=newX(a)  ",
+      "preset_script": "None",
+      "always_run": "false",
+      "a": [
+        "364",
+        1
+      ]
+    },
+    "class_type": "ASTERR",
+    "_meta": {
+      "title": "ASTERR Script"
+    }
+  },
+  "368": {
+    "inputs": {
+      "segs": [
+        "362",
+        0
+      ]
+    },
+    "class_type": "ImpactIsNotEmptySEGS",
+    "_meta": {
+      "title": "SEGS isn't Empty"
+    }
+  },
+  "369": {
+    "inputs": {
+      "boolean": [
+        "368",
+        0
+      ],
+      "image_a": [
+        "365",
+        0
+      ],
+      "image_b": [
+        "339",
+        0
+      ]
+    },
+    "class_type": "Image Input Switch",
+    "_meta": {
+      "title": "Image Input Switch"
+    }
+  },
+  "371": {
+    "inputs": {
+      "prompt": [
+        "243",
+        0
+      ],
+      "debug": false,
+      "url": "http://127.0.0.1:11434",
+      "model": "mannix/llama3.1-8b-abliterated:latest",
+      "system": "You are an art expert, gracefully describing your knowledge in art domain.",
+      "seed": 513285560,
+      "top_k": 40,
+      "top_p": 0.9,
+      "temperature": 0.8,
+      "num_predict": -1,
+      "tfs_z": 1,
+      "keep_alive": 5,
+      "keep_context": false,
+      "format": "text"
+    },
+    "class_type": "OllamaGenerateAdvance",
+    "_meta": {
+      "title": "Ollama Generate Advance"
+    }
+  }
+}
